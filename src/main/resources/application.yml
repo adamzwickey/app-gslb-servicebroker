@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: "GSLB Service Broker"
+  security:
+    user:
+      name: admin
+      password: admin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+gslb:
+  defaultDomain: global.public.cloud.zwickey.net
+  defaultHealthCheckPath: /health
+gcp:
+  project: fe-azwickey
+  auth:
+    json: 'secrets/FE-azwickey-44b8446078ff.json'
+  zones: us-west1-a,us-west1-b,us-west1-c
+  instanceGroup: pcf-http-lb-west
