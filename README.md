@@ -1,4 +1,4 @@
 # app-gslb-servicebroker
 Service Broker that provides app-specific GSLB capabilities for PCF Apps.  When consumed by an application the service broker create-service command prepares and configures an region-specfic app pool with healthcheck.  The bind-service command registers region-specific applications (or the routers serving the application) with the application pool.  By deploying the service broker to two or more PCF foundations, your application traffic will be globally distributed with application-specific health checks to ensure that the application is available in a specific foundation.
- 
-[logo]: https://github.com/azwickey-pivotal/app-gslb-servicebroker/blob/master/imgs/refarch.png?raw=true "Generic IaaS Arch"
+
+ <kbd>!["Generic IaaS Arch"](https://github.com/azwickey-pivotal/app-gslb-servicebroker/blob/master/imgs/refarch.png?raw=true)</kbd> 
