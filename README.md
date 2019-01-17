@@ -6,13 +6,27 @@ Service Broker that provides app-specific GSLB capabilities for PCF Apps.  When 
  ## GCP Architecture and Design
  The implementation of the service broker that integrates with GCP load balancing services is designed as follows:
  
- ** Prerequisite: An existing GCP Load Balancer
+ ** Prerequisite: An existing GCP Load Balancer **
   
  * Executing create-service creates an HTTP health check object for the application service, creates an empty backend representing the application and links the health check with the backend, and creates a URL map that will route all traffic to the host + domain of the application to the backend.
+ ```bash
+ cf create-service app-gslb standard fortune-gslb -c '{"host":"fortune"}'
+ ```
  <kbd>!["Generic IaaS Arch"](https://github.com/azwickey-pivotal/app-gslb-servicebroker/blob/master/imgs/create.png?raw=true)</kbd>
  
- * Executing bind-service creates an instancegroup for each zone that has at least one PCF router within the load balancer backend. 
+ * Executing bind-service creates an instancegroup for each zone that has at least one PCF router within the load balancer backend.
+ ```bash
+  cf bind-service fortune-app fortune-gslb
+  ``` 
  <kbd>!["Generic IaaS Arch"](https://github.com/azwickey-pivotal/app-gslb-servicebroker/blob/master/imgs/bind.png?raw=true)</kbd>
+ 
+ 
+ Executing this against a service broker deployed to two different PCF foundations deployed to two different GCP regions results in a global load balancing backend that will distribute traffic to healthy backends in both foundations.
+ 
+ <kbd>!["Generic IaaS Arch"](https://github.com/azwickey-pivotal/app-gslb-servicebroker/blob/master/imgs/global.png?raw=true)</kbd>
+ 
+ <kbd>!["Generic IaaS Arch"](https://github.com/azwickey-pivotal/app-gslb-servicebroker/blob/master/imgs/global-traffic.png?raw=true)</kbd>
+ 
  
  ### Steps to Deploy
  1. 
