@@ -33,6 +33,8 @@ Service Broker that provides app-specific GSLB capabilities for PCF Apps.  When 
   * Select a new global wildcard domain, e.g. "*.apps.global.cloud.pcf.com", and generate a wildcard SSL certificate if using TLS.
   * Prepare a new GCP Load Balancer with a frontend bound to a static IP address.  Create a frontend for port 80 and 443 (if using TLS; terminate with the cert you just created)
   * Create a DNS entry that maps the static IP of the Load Balancer to the wildcard domain (e.g. "*.apps.global.cloud.pcf.com")
+  * Add the domain created above as an additional shared domain to your PCF foundations
+  * Deploy and app to the foundations and add an additional route using a hostname + the new shared domain (e.g. myapp.global.cloud.pcf.com)
   * The running Service Broker application requires a PCF Redis service instance.
   
   __Deployment__
@@ -73,13 +75,14 @@ cf start gslb
 8. Repeat step 7 in any additional PCF foundations within different GCP regions.
 9. Create and bind the gslb into an application.  The params available to be passed into the create-service command are as follows:
 | param       | Required | Description                                                                     |
-| ----------- |:--------:| -------------------------------------------------------------------------------:|
+| ----------- |:--------:|:------------------------------------------------------------------------------- |
 | host        | true     | Set the hostname of the application route.  This will be prefixed to the domain |
 | domain      | false    | Override the default hostname for application routing                           |
 | healthcheck | false    | Override the default healthcheck path ("/health")                               |
 
  ```bash
-cf create-service app-gslb standard fortune-gslb -c '{"host":"fortune"}'
-cf bind-service fortune-app fortune-gslb
+cf create-service app-gslb standard my-app-gslb -c '{"host":"myapp"}'
+cf bind-service my-app my-app-gslb
 ``` 
-8. Repeat step 9 in any additional PCF foundations within different GCP regions.
+10. Repeat step 9 in any additional PCF foundations within different GCP regions.
+11. After a few minutes (GCP takes about 4 minutes to put a new LB backend in service you app will be available) at myapp.apps.global.cloud.pcf.com
