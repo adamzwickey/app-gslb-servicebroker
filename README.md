@@ -68,7 +68,7 @@ cf set-env gslb GCP_ZONES us-east1-b,us-east1-c,us-east1-d
 cf set-env gslb GCP_INSTANCEGROUP pcf-http-lb-east
 cf start gslb
 ``` 
-7. Repeat step 7 in any additional PCF foundations within different GCP regions.
+7. Repeat step 6 in any additional PCF foundations within different GCP regions.
 8. Create and bind the gslb into an application.  The params available to be passed into the create-service command are as follows:
 
 Param | Required | Description
@@ -81,5 +81,5 @@ healthcheck | false | Override the default healthcheck path ("/health")
 cf create-service app-gslb standard my-app-gslb -c '{"host":"myapp"}'
 cf bind-service my-app my-app-gslb
 ``` 
-9. Repeat step 9 in any additional PCF foundations within different GCP regions.
+9. Repeat step 8 in any additional PCF foundations within different GCP regions.
 10. After a few minutes (GCP takes about 4 minutes to put a new LB backend in service you app will be available) at myapp.apps.global.cloud.pcf.com
