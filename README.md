@@ -56,15 +56,11 @@ gslb:
  ```bash
  mvn clean package
 ``` 
- 5. Build the application using maven:
- ```bash
- mvn clean package
-``` 
-6. Provision a Redis Service Instance to be consumed by the service broker application
+5. Provision a Redis Service Instance to be consumed by the service broker application
  ```bash
 cf create-service p-redis shared-vm gslb-database
 ``` 
-7. Push the service broker application to PCF, binding in the redis service instance, and setting environment variables representing the GCP zones that contain PCF routers and the name of the http instance group for PCF:
+6. Push the service broker application to PCF, binding in the redis service instance, and setting environment variables representing the GCP zones that contain PCF routers and the name of the http instance group for PCF:
  ```bash
 cf push gslb -b java_buildpack_offline -p target/app-gslb-servicebroker-0.0.1-SNAPSHOT.jar --no-start
 cf bind-service gslb gslb-database
@@ -72,8 +68,8 @@ cf set-env gslb GCP_ZONES us-east1-b,us-east1-c,us-east1-d
 cf set-env gslb GCP_INSTANCEGROUP pcf-http-lb-east
 cf start gslb
 ``` 
-8. Repeat step 7 in any additional PCF foundations within different GCP regions.
-9. Create and bind the gslb into an application.  The params available to be passed into the create-service command are as follows:
+7. Repeat step 7 in any additional PCF foundations within different GCP regions.
+8. Create and bind the gslb into an application.  The params available to be passed into the create-service command are as follows:
 
 Param | Required | Description
 --- | --- | ---
@@ -85,5 +81,5 @@ healthcheck | false | Override the default healthcheck path ("/health")
 cf create-service app-gslb standard my-app-gslb -c '{"host":"myapp"}'
 cf bind-service my-app my-app-gslb
 ``` 
-10. Repeat step 9 in any additional PCF foundations within different GCP regions.
-11. After a few minutes (GCP takes about 4 minutes to put a new LB backend in service you app will be available) at myapp.apps.global.cloud.pcf.com
+9. Repeat step 9 in any additional PCF foundations within different GCP regions.
+10. After a few minutes (GCP takes about 4 minutes to put a new LB backend in service you app will be available) at myapp.apps.global.cloud.pcf.com
