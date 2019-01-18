@@ -90,7 +90,7 @@ public class GCPGslbService implements InitializingBean, IAppGslbService {
 
         } catch(IOException ex) {
             ex.printStackTrace();
-            throw new RuntimeException("something went wrong");
+            throw new RuntimeException("something went wrong: " + ex.getMessage()");
         }
 
         return lb;
@@ -105,7 +105,7 @@ public class GCPGslbService implements InitializingBean, IAppGslbService {
             deleteHealthCheck(lb.getHost());
         } catch(IOException ex) {
             ex.printStackTrace();
-            throw new RuntimeException("something went wrong");
+            throw new RuntimeException("something went wrong: " + ex.getMessage());
         }
     }
 
@@ -115,7 +115,7 @@ public class GCPGslbService implements InitializingBean, IAppGslbService {
             addBackends(lb.getHost());
         } catch(IOException ex) {
             ex.printStackTrace();
-            throw new RuntimeException("something went wrong");
+            throw new RuntimeException("something went wrong: " + ex.getMessage()");
         }
         return lb;
     }
@@ -126,7 +126,7 @@ public class GCPGslbService implements InitializingBean, IAppGslbService {
             deleteBackends(lb.getHost());
         } catch(IOException ex) {
             ex.printStackTrace();
-            throw new RuntimeException("something went wrong");
+            throw new RuntimeException("something went wrong: " + ex.getMessage()");
         }
     }
 
