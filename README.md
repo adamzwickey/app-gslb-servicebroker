@@ -35,6 +35,14 @@ Service Broker that provides app-specific GSLB capabilities for PCF Apps.  When 
   * Create a DNS entry that maps the static IP of the Load Balancer to the wildcard domain (e.g. "*.apps.global.cloud.pcf.com")
   
   __Deployment__
- 1. 
+  
+ 1. Place you service account json ojbect that has access to your GCP project in src/resources/
+ 2. edit the file *src/resources/application.yml* to reflect your GCP project and name of your json account creds:
+ ```yml
+ gcp:
+  project: fe-azwickey
+  auth:
+    json: 'secrets/FE-azwickey-44b8446078ff.json'
+``` 
  2. 
  3. 
