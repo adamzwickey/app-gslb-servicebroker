@@ -29,7 +29,7 @@ Service Broker that provides app-specific GSLB capabilities for PCF Apps.  When 
  
  
  ### Steps to Deploy
-  ** Prerequisite: An existing GCP Load Balancer **
+  ** Prerequisites **
   * Select a new global wildcard domain, e.g. "*.apps.global.cloud.pcf.com", and generate a wildcard SSL certificate if using TLS.
   * Prepare a new GCP Load Balancer with a frontend bound to a static IP address.  Create a frontend for port 80 and 443 (if using TLS; terminate with the cert you just created)
   * Create a DNS entry that maps the static IP of the Load Balancer to the wildcard domain (e.g. "*.apps.global.cloud.pcf.com")
@@ -39,7 +39,7 @@ Service Broker that provides app-specific GSLB capabilities for PCF Apps.  When 
   
   __Deployment__
   
- 1. Place you service account json ojbect that has access to your GCP project in *src/resources/*
+ 1. Place your service account json ojbect that has access to your GCP project in *src/resources/*
  2. Edit the file *src/resources/application.yml* to reflect your GCP project and name of your json account creds:
  ```yml
  gcp:
