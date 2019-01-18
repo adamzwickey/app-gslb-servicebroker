@@ -74,11 +74,12 @@ cf start gslb
 ``` 
 8. Repeat step 7 in any additional PCF foundations within different GCP regions.
 9. Create and bind the gslb into an application.  The params available to be passed into the create-service command are as follows:
-| param       | Required | Description                                                                     |
-| ----------- |:--------:|:------------------------------------------------------------------------------- |
-| host        | true     | Set the hostname of the application route.  This will be prefixed to the domain |
-| domain      | false    | Override the default hostname for application routing                           |
-| healthcheck | false    | Override the default healthcheck path ("/health")                               |
+
+Param | Required | Description
+--- | --- | ---
+host | true | Set the hostname of the application route.  This will be prefixed to the domain
+domain | false | Override the default hostname for application routing
+healthcheck | false | Override the default healthcheck path ("/health")
 
  ```bash
 cf create-service app-gslb standard my-app-gslb -c '{"host":"myapp"}'
